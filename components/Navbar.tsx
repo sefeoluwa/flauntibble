@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import logo_black from 'public/logo_black.png'
+import logo_black from '../logo_black.png'
 
 const Navbar = () => {
   return (
@@ -14,6 +14,9 @@ const Navbar = () => {
                     alt='flauntibble'
                 />
             </Link>
+            <ul className="xl:flex hidden text-small gap-7">
+               
+            </ul>
         </div>
     </nav>
   )
