@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-import logo_black from '../logo_black.png'
 import { NavLinks } from "@/constants"
 import AuthProviders from "./AuthProviders"
 
