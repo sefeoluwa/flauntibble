@@ -4,7 +4,12 @@ import {useState, useEffect} from 'react'
 import { getProviders, signIn } from 'next-auth/react'
 
 type Providers = {
-   
+   id: string,
+   name: string,
+   type: string,
+   signinUrl: string,
+   callbackUrl: string,
+   signinUrlParams: Record<string, string> | null;
 }
 
 const AuthProviders = () => {
