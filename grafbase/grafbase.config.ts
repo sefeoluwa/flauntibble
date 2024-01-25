@@ -44,7 +44,6 @@ const User = mongodb.model('User', {
   description: g.string().optional(),
   githubUrl: g.url().optional(),
   linkedInUrl: g.url().optional(),
-  projects: g.ref('Projects').list().optional(),
 })
 
   const Projects = mongodb.model('Projects', {
@@ -54,7 +53,7 @@ const User = mongodb.model('User', {
     liveSiteurl: g.url(),
     githubUrl: g.url(),
     category: g.string(),
-    createdBy: g.ref('User')
+    createdBy: g.string(),
   })
 
   .collection('users')
