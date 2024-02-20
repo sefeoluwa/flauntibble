@@ -1,4 +1,5 @@
-import { config, connector, g } from '@grafbase/sdk'
+// @ts-ignore
+import { config, connector, g, auth } from '@grafbase/sdk'
 
 const mongodb = connector.MongoDB('MongoDB', {
   url: g.env('MONGO_ATLAS_URL'),
@@ -16,6 +17,8 @@ const User = mongodb.model('User', {
   githubUrl: g.url().optional(),
   linkedInUrl: g.url().optional(),
   projects: g.string(),
+}).auth((rules) => {
+  rules.public().read()
 })
 
   const Projects = mongodb.model('Projects', {
@@ -26,10 +29,23 @@ const User = mongodb.model('User', {
     githubUrl: g.url(),
     category: g.string(),
     createdBy: g.string(),
+  }).auth((rules) => {
+    rules.public().read(),
+    rules.private().create().delete().update();
   })
 
   .collection('users')
 
+
+  const jwt = auth.JWT({
+    issuer: 'grafbase',
+    secret: g.env('NEXTAUTH_SECRET')
+  })
+
   export default config({
     schema: g,
+    auth: {
+      providers: [jwt],
+      rules: (rules) => rules.private(),
+    }
   })
