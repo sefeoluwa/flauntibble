@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
             //create user if they don't exist
             return true
          } catch (error: any) {
-            console.log(error)
+            console.log(error, 'Error checking if user exists')
             return false;
          }
         },
