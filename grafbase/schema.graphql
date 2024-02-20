@@ -1,0 +1,44 @@
+extend schema
+  @auth(
+    providers: [
+      { type: jwt, issuer: "grafbase", secret: "7nrsfrsMGmw0hn8yn1xpLEWwB6Pq9TUzPWaYzF0ayOw=" }
+    ]
+    rules: [
+      { allow: private }
+    ]
+  )extend schema
+  @mongodb(
+    namespace: true
+    name: "MongoDB"
+    url: "https://eu-central-1.aws.data.mongodb-api.com/app/data-gojws/endpoint/data/v1"
+    apiKey: "oaic928pK9qrIS7HL0bUOmN3Q2ME3qmh9FJu2kZkc9eOhgIkCpqdy0mWjArQz1VH"
+    dataSource: "GCP, Belgium (WESTERN_EUROPE)"
+    database: "Flauntibble"
+  )
+
+type User @model(connector: "MongoDB", collection: "User") @auth(
+    rules: [
+      { allow: public, operations: [read] }
+    ]) {
+  name: String! @length(min: 2, max: 20)
+  email: String! @unique
+  avatarUrl: URL!
+  description: String
+  githubUrl: URL
+  linkedInUrl: URL
+  projects: String!
+}
+
+type Projects @model(connector: "MongoDB", collection: "users") @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      { allow: private, operations: [create, delete, update] }
+    ]) {
+  title: String! @length(min: 3)
+  description: String!
+  image: URL!
+  liveSiteurl: URL!
+  githubUrl: URL!
+  category: String!
+  createdBy: String!
+}
