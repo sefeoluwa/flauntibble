@@ -15,3 +15,21 @@ export const getUserQuery = `
           }
     }
 `
+
+export const createUserMutation = `
+    mutation Createuser($input: UserCreateInput!) {
+        mongoDB{
+            userCreate(input: $input){
+                user{
+                    name
+                    email
+                    avatarUrl
+                    description
+                    githubUrl
+                    linkedinUrl
+                    id
+                }
+            }
+        }
+    }
+`
