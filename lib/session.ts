@@ -33,13 +33,16 @@ export const authOptions: NextAuthOptions = {
         async signIn({ user } : { user: AdapterUser | User}) {
          try {
             // get user if they exist
-            const userExists = await getUser(user?.email as string) as (user?: UserProfile)
+            const userExists = await getUser(user?.email as string) as { user?: UserProfile }
 
             //create user if they don't exist
             if (!userExists.user) {
-               await createUser
+               await createUser(
+                  user.name as string,
+                  user.email as string,
+                  user.image as string
+                  )
             }
-
             return true
          } catch (error: any) {
             console.log(error, 'Error checking if user exists')
